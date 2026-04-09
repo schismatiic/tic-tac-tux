@@ -1,0 +1,38 @@
+/* =============================================================================================== */
+/* Global  */
+:root {
+  --body-bgc: rgb(43, 43, 43);
+  --clear-color: #eeeeee;
+}
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--body-bgc);
+  color: var(--clear-color);
+  font-family: "Noto Sans", sans-serif;
+}
+/* =============================================================================================== */
+/* Logo */
+#logo {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--clear-color);
+  padding: 12px 40px;
+}
+h1 {
+  font-weight: 500;
+  font-size: 35px;
+}
+#logo span {
+  font-weight: 800;
+}
