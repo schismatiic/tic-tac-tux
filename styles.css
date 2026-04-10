@@ -76,7 +76,8 @@ h1 {
 .input__container {
   margin-bottom: 30px;
 }
-.play__button {
+.play__button,
+.restart__button {
   background-color: var(--square-color);
   color: var(--clear-color);
   box-shadow: 0 0 5px var(--square-color);
@@ -84,6 +85,7 @@ h1 {
   padding: 10px 50px;
   border-radius: 40px;
   font-weight: 700;
+  margin-top: 10px;
 }
 .play__button:hover {
   transform: scale(0.95);
@@ -91,11 +93,17 @@ h1 {
 .play__button:active {
   transform: scale(0.85);
 }
+#game__screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 #gameboard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 20px;
   width: 300px;
 }
 .square {

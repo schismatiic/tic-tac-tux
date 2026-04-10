@@ -54,6 +54,7 @@ function Gameboard() {
       console.log(`${playerMarker} Wins!`);
       if (playerMarker === "X") {
         firstPlayer.winner = true;
+        return firstPlayer.winner;
       } else if (playerMarker === "O") {
         secondPlayer.winner = true;
       }
@@ -79,7 +80,7 @@ function Gameboard() {
     player2.id = "idPlayer2";
 
     startScreen.style.cssText =
-      "display: flex ; flex-direction: column; padding: 40px;   border-radius: 40px;   background-color: #3b3b3b;";
+      "display: flex ; flex-direction: column; padding: 40px;   border-radius: 20px;   background-color: #3b3b3b;";
     const playButton = document.createElement("button");
     playButton.className = "play__button";
     playButton.textContent = "PLAY";
@@ -117,7 +118,7 @@ function Gameboard() {
       const gameboardRender = document.getElementById("gameboard");
       const whoWins = document.getElementById("who-wins");
       const squareRender = document.createElement("button");
-
+      const game__screen = document.getElementById("game__screen");
       squareRender.className = "square";
       squareRender.addEventListener("click", () => {
         if (
@@ -126,9 +127,6 @@ function Gameboard() {
           secondPlayer.winner !== true
         ) {
           checkEmpty[index] = index;
-          console.log(`Index: ${index}`);
-          console.log(`Checkempty index: ${checkEmpty[index]}`);
-          console.log(checkEmpty);
           if (gameTurn < 9) {
             if (gameTurn % 2 === 0) {
               changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
@@ -137,6 +135,10 @@ function Gameboard() {
               whoWins.textContent = `${firstPlayer.name}'s turn`;
               if (firstPlayer.winner) {
                 whoWins.textContent = `${firstPlayer.name} wins!`;
+                const restartButton = document.createElement("button");
+                restartButton.className = "restart__button";
+                restartButton.textContent = "Restart";
+                game__screen.appendChild(restartButton);
               }
               squareRender.textContent = `${firstPlayer.marker}`;
             } else {
@@ -149,6 +151,10 @@ function Gameboard() {
               whoWins.textContent = `${secondPlayer.name}'s turn`;
               if (secondPlayer.winner) {
                 whoWins.textContent = `${secondPlayer.name} wins!`;
+                const restartButton = document.createElement("button");
+                restartButton.className = "restart__button";
+                restartButton.textContent = "Restart";
+                game__screen.appendChild(restartButton);
               }
               squareRender.textContent = `${secondPlayer.marker}`;
             }
@@ -156,6 +162,10 @@ function Gameboard() {
           }
         }
       });
+      // =============================================================================================================
+      // =============================> RESTART RENDER
+      const restartRender = () => {};
+      // =============================================================================================================
       gameboardRender.appendChild(squareRender);
     }
   };
