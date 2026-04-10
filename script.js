@@ -109,10 +109,13 @@ let tuxToggle = true;
 for (let i = 0; i < 3; i++) {
   const tuxedo = document.createElement("img");
   tuxedo.src = "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png";
+  tuxedo.style.width = "40px";
   tuxedo.className = "tux";
+  if (i === 1) {
+    tuxedo.style.width = "50px";
+  }
   tuxedo.addEventListener("click", () => {
     console.log(tuxToggle);
-
     if (tuxToggle === true) {
       tuxedo.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
       tuxToggle = false;

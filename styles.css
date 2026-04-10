@@ -35,10 +35,17 @@ button {
   box-shadow: 0 0 5px var(--clear-color);
   padding: 12px 40px;
   width: 300px;
+  height: 150px;
 }
 #logo span {
   color: var(--square-color);
   font-weight: 800;
+  font-size: 42px;
+}
+.tux__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .tux {
   cursor: pointer;
