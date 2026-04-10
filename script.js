@@ -84,11 +84,17 @@ function Gameboard() {
     playButton.className = "play__button";
     playButton.textContent = "PLAY";
     playButton.addEventListener("click", () => {
-      const namePlayer1 = document.getElementById("idPlayer1").value;
-      const namePlayer2 = document.getElementById("idPlayer2").value;
+      let namePlayer1 = document.getElementById("idPlayer1").value;
+      let namePlayer2 = document.getElementById("idPlayer2").value;
       console.log(namePlayer1);
       console.log(namePlayer2);
       startScreen.style.cssText = "display: grid";
+      if (namePlayer1 === "") {
+        namePlayer1 = "Player 1";
+      }
+      if (namePlayer2 === "") {
+        namePlayer2 = "Player 2";
+      }
       firstPlayer = Player(namePlayer1, "X");
       secondPlayer = Player(namePlayer2, "O");
       renderGameboard();
@@ -128,6 +134,7 @@ function Gameboard() {
               changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
               checkGame(firstPlayer.marker);
               console.log(gameboard);
+              whoWins.textContent = `${firstPlayer.name}'s turn`;
               if (firstPlayer.winner) {
                 whoWins.textContent = `${firstPlayer.name} wins!`;
               }
@@ -139,6 +146,7 @@ function Gameboard() {
               );
               checkGame(secondPlayer.marker);
               console.log(gameboard);
+              whoWins.textContent = `${secondPlayer.name}'s turn`;
               if (secondPlayer.winner) {
                 whoWins.textContent = `${secondPlayer.name} wins!`;
               }
