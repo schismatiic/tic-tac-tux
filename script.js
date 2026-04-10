@@ -13,7 +13,7 @@ function Player(name, marker) {
   return { name, marker, newChoise, getScore, increaseScore, winner };
 }
 function Gameboard() {
-  const gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+  let gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
   let gameTurn = 0;
   let checkEmpty = [];
   // =============================================================================================================
@@ -114,6 +114,19 @@ function Gameboard() {
   // =============================================================================================================
   // =============================> GAMEBOARD RENDER
   const renderGameboard = () => {
+    const restartRender = (gamescreen, restartButton, winner, square) => {
+      gamescreen.removeChild(restartButton);
+      gameTurn = 0;
+      gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+      checkEmpty = [];
+      console.log(checkEmpty);
+      if (winner === firstPlayer) {
+        firstPlayer.winner = false;
+      } else if (winner === secondPlayer) {
+        secondPlayer.winner = false;
+      }
+      square.textContent = "";
+    };
     for (let index = 0; index < 9; index++) {
       const gameboardRender = document.getElementById("gameboard");
       const whoWins = document.getElementById("who-wins");
@@ -127,6 +140,8 @@ function Gameboard() {
           secondPlayer.winner !== true
         ) {
           checkEmpty[index] = index;
+          console.log(checkEmpty);
+
           if (gameTurn < 9) {
             if (gameTurn % 2 === 0) {
               changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
@@ -139,6 +154,14 @@ function Gameboard() {
                 restartButton.className = "restart__button";
                 restartButton.textContent = "Restart";
                 game__screen.appendChild(restartButton);
+                restartButton.addEventListener("click", () => {
+                  restartRender(
+                    game__screen,
+                    restartButton,
+                    firstPlayer,
+                    squareRender,
+                  );
+                });
               }
               squareRender.textContent = `${firstPlayer.marker}`;
             } else {
@@ -155,6 +178,14 @@ function Gameboard() {
                 restartButton.className = "restart__button";
                 restartButton.textContent = "Restart";
                 game__screen.appendChild(restartButton);
+                restartButton.addEventListener("click", () => {
+                  restartRender(
+                    game__screen,
+                    restartButton,
+                    secondPlayer,
+                    squareRender,
+                  );
+                });
               }
               squareRender.textContent = `${secondPlayer.marker}`;
             }
@@ -164,7 +195,6 @@ function Gameboard() {
       });
       // =============================================================================================================
       // =============================> RESTART RENDER
-      const restartRender = () => {};
       // =============================================================================================================
       gameboardRender.appendChild(squareRender);
     }

@@ -87,10 +87,23 @@ h1 {
   font-weight: 700;
   margin-top: 10px;
 }
+.restart__button {
+  color: var(--square-color);
+  background-color: black;
+  box-shadow: 0 0 5px black;
+  font-size: 18px;
+  padding: 8px 36px;
+}
 .play__button:hover {
   transform: scale(0.95);
 }
 .play__button:active {
+  transform: scale(0.85);
+}
+.restart__button:hover {
+  transform: scale(0.95);
+}
+.restart__button:active {
   transform: scale(0.85);
 }
 #game__screen {
@@ -125,5 +138,7 @@ h1 {
 }
 #who-wins {
   margin-top: 20px;
+  background-color: #9d9d9d2b;
   color: var(--clear-color);
+  /* padding: 10px 20px; */
 }
