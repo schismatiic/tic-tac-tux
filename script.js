@@ -102,13 +102,32 @@ function Gameboard() {
   };
   return { getGameboard, changeGameboard, checkGame, renderGameboard };
 }
-const tuxedo = document.querySelector(".tux");
+// =============================================================================================================
+// =============================> TUX LOGO
+const tux__container = document.getElementById("tux__container");
+let tuxToggle = true;
+for (let i = 0; i < 3; i++) {
+  const tuxedo = document.createElement("img");
+  tuxedo.src = "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png";
+  tuxedo.className = "tux";
+  tuxedo.addEventListener("click", () => {
+    console.log(tuxToggle);
+
+    if (tuxToggle === true) {
+      tuxedo.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
+      tuxToggle = false;
+    } else {
+      tuxedo.src =
+        "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png";
+      tuxToggle = true;
+    }
+  });
+  tux__container.appendChild(tuxedo);
+}
+// =============================================================================================================
 const firstPlayer = Player("Schism", "X");
 const secondPlayer = Player("Moth", "O");
 
 const gameboard = Gameboard();
 // console.log(firstPlayer.getMarker());
 gameboard.renderGameboard();
-tuxedo.addEventListener("click", () => {
-  tuxedo.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
-});
