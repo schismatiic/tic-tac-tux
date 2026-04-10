@@ -16,6 +16,8 @@ function Gameboard() {
   const gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
   let gameTurn = 0;
   let checkEmpty = [];
+  // =============================================================================================================
+  // =============================> CHANGE GAMEBOARD
   const changeGameboard = (newChoise, marker) => {
     if (gameboard[newChoise] !== "X" && gameboard[newChoise] !== "O") {
       if (marker === "X") {
@@ -25,7 +27,11 @@ function Gameboard() {
       }
     }
   };
+  // =============================================================================================================
+
   const getGameboard = () => gameboard;
+  // =============================================================================================================
+  // =============================> CHECK GAME
   const checkGame = (playerMarker) => {
     if (
       (gameboard[0] === "X" && gameboard[4] === "X" && gameboard[8] === "X") ||
@@ -55,6 +61,27 @@ function Gameboard() {
       console.log("Draw!");
     }
   };
+  // =============================================================================================================
+
+  // =============================================================================================================
+  // =============================> START RENDER
+  const startRender = () => {
+    const startScreen = document.getElementById("gameboard");
+    startScreen.style.cssText = "display: flex";
+    const playButton = document.createElement("button");
+    playButton.className = "play__button";
+    playButton.textContent = "PLAY";
+    playButton.addEventListener("click", () => {
+      startScreen.style.cssText = "display: grid";
+      renderGameboard();
+      startScreen.removeChild(playButton);
+    });
+    startScreen.appendChild(playButton);
+  };
+  // =============================================================================================================
+
+  // =============================================================================================================
+  // =============================> GAMEBOARD RENDER
   const renderGameboard = () => {
     for (let index = 0; index < 9; index++) {
       const gameboardRender = document.getElementById("gameboard");
@@ -100,7 +127,15 @@ function Gameboard() {
       gameboardRender.appendChild(squareRender);
     }
   };
-  return { getGameboard, changeGameboard, checkGame, renderGameboard };
+  // =============================================================================================================
+
+  return {
+    getGameboard,
+    changeGameboard,
+    checkGame,
+    startRender,
+    renderGameboard,
+  };
 }
 // =============================================================================================================
 // =============================> TUX LOGO
@@ -133,4 +168,4 @@ const secondPlayer = Player("Moth", "O");
 
 const gameboard = Gameboard();
 // console.log(firstPlayer.getMarker());
-gameboard.renderGameboard();
+gameboard.startRender();
