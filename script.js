@@ -67,15 +67,39 @@ function Gameboard() {
   // =============================> START RENDER
   const startRender = () => {
     const startScreen = document.getElementById("gameboard");
-    startScreen.style.cssText = "display: flex";
+    const divInput = document.createElement("div");
+    const player1 = document.createElement("input");
+    const player2 = document.createElement("input");
+    player1.placeholder = "Player 1";
+    player2.placeholder = "Player 2";
+    divInput.className = "input__container";
+    player1.className = "player__input";
+    player2.className = "player__input";
+    player1.id = "idPlayer1";
+    player2.id = "idPlayer2";
+
+    startScreen.style.cssText =
+      "display: flex ; flex-direction: column; padding: 40px;   border-radius: 40px;   background-color: #3b3b3b;";
     const playButton = document.createElement("button");
     playButton.className = "play__button";
     playButton.textContent = "PLAY";
     playButton.addEventListener("click", () => {
+      const namePlayer1 = document.getElementById("idPlayer1").value;
+      const namePlayer2 = document.getElementById("idPlayer2").value;
+      console.log(namePlayer1);
+      console.log(namePlayer2);
       startScreen.style.cssText = "display: grid";
+      firstPlayer = Player(namePlayer1, "X");
+      secondPlayer = Player(namePlayer2, "O");
       renderGameboard();
+      startScreen.removeChild(divInput);
+      divInput.removeChild(player1);
+      divInput.removeChild(player2);
       startScreen.removeChild(playButton);
     });
+    startScreen.appendChild(divInput);
+    divInput.appendChild(player1);
+    divInput.appendChild(player2);
     startScreen.appendChild(playButton);
   };
   // =============================================================================================================
@@ -105,7 +129,7 @@ function Gameboard() {
               checkGame(firstPlayer.marker);
               console.log(gameboard);
               if (firstPlayer.winner) {
-                whoWins.textContent = "X wins!";
+                whoWins.textContent = `${firstPlayer.name} wins!`;
               }
               squareRender.textContent = `${firstPlayer.marker}`;
             } else {
@@ -116,7 +140,7 @@ function Gameboard() {
               checkGame(secondPlayer.marker);
               console.log(gameboard);
               if (secondPlayer.winner) {
-                whoWins.textContent = "O wins!";
+                whoWins.textContent = `${secondPlayer.name} wins!`;
               }
               squareRender.textContent = `${secondPlayer.marker}`;
             }
@@ -163,9 +187,8 @@ for (let i = 0; i < 3; i++) {
   tux__container.appendChild(tuxedo);
 }
 // =============================================================================================================
-const firstPlayer = Player("Schism", "X");
-const secondPlayer = Player("Moth", "O");
-
+let firstPlayer = Player("Player 1", "X");
+let secondPlayer = Player("Player 2", "O");
 const gameboard = Gameboard();
-// console.log(firstPlayer.getMarker());
+
 gameboard.startRender();
