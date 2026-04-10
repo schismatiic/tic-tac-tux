@@ -63,7 +63,11 @@ function Gameboard() {
 
       squareRender.className = "square";
       squareRender.addEventListener("click", () => {
-        if (checkEmpty[index] === undefined) {
+        if (
+          checkEmpty[index] === undefined &&
+          firstPlayer.winner !== true &&
+          secondPlayer.winner !== true
+        ) {
           checkEmpty[index] = index;
           console.log(`Index: ${index}`);
           console.log(`Checkempty index: ${checkEmpty[index]}`);
