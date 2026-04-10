@@ -3,6 +3,7 @@
 :root {
   --body-bgc: rgb(43, 43, 43);
   --clear-color: #eeeeee;
+  --square-color: #ff1616;
 }
 * {
   border: 0;
@@ -14,9 +15,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: var(--body-bgc);
   color: var(--clear-color);
   font-family: "Noto Sans", sans-serif;
+}
+button {
+  cursor: pointer;
 }
 /* =============================================================================================== */
 /* Logo */
@@ -27,12 +32,52 @@ body {
   justify-content: center;
   align-items: center;
   border: 3px solid var(--clear-color);
+  box-shadow: 0 0 5px var(--clear-color);
   padding: 12px 40px;
+}
+#logo span {
+  color: var(--square-color);
+  font-weight: 800;
+}
+.tux {
+  cursor: pointer;
+  margin: 0 10px;
+}
+.tux:hover {
+  transform: scale(0.95);
+}
+.tux:active {
+  transform: scale(0.85);
 }
 h1 {
   font-weight: 500;
   font-size: 35px;
 }
-#logo span {
+
+#gameboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  margin-top: 40px;
+  width: 300px;
+}
+.square {
+  background-color: var(--square-color);
+  box-shadow: 0 0 5px var(--square-color);
+  width: 90px;
+  height: 90px;
+  margin: 10px;
+  font-size: 50px;
   font-weight: 800;
+  font-family: "Fredoka", sans-serif;
+}
+.square:hover {
+  transform: scale(0.95);
+}
+.square:active {
+  transform: scale(0.85);
+}
+#who-wins {
+  margin-top: 20px;
+  color: var(--clear-color);
 }

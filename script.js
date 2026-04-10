@@ -1,5 +1,6 @@
 function Player(name, marker) {
   let score = 0;
+  let winner = false;
   let playerChoise;
   const newChoise = (choise) => {
     playerChoise = choise;
@@ -9,10 +10,11 @@ function Player(name, marker) {
   const increaseScore = () => {
     score++;
   };
-  return { name, marker, newChoise, getScore, increaseScore };
+  return { name, marker, newChoise, getScore, increaseScore, winner };
 }
 function Gameboard() {
   const gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+  let gameTurn = 0;
   const changeGameboard = (newChoise, marker) => {
     if (gameboard[newChoise] !== "X" && gameboard[newChoise] !== "O") {
       if (marker === "X") {
@@ -43,22 +45,55 @@ function Gameboard() {
       (gameboard[2] === "O" && gameboard[5] === "O" && gameboard[8] === "O")
     ) {
       console.log(`${playerMarker} Wins!`);
+      if (playerMarker === "X") {
+        firstPlayer.winner = true;
+      } else if (playerMarker === "O") {
+        secondPlayer.winner = true;
+      }
     } else {
       console.log("Draw!");
     }
   };
-
-  return { getGameboard, changeGameboard, checkGame };
+  const renderGameboard = () => {
+    for (let index = 0; index < 9; index++) {
+      const gameboardRender = document.getElementById("gameboard");
+      const whoWins = document.getElementById("who-wins");
+      const squareRender = document.createElement("button");
+      squareRender.className = "square";
+      squareRender.addEventListener("click", () => {
+        if (gameTurn < 9) {
+          if (gameTurn % 2 === 0) {
+            changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
+            checkGame(firstPlayer.marker);
+            console.log(gameboard);
+            if (firstPlayer.winner) {
+              whoWins.textContent = "X wins!";
+            }
+            squareRender.textContent = `${firstPlayer.marker}`;
+          } else {
+            changeGameboard(secondPlayer.newChoise(index), secondPlayer.marker);
+            checkGame(secondPlayer.marker);
+            console.log(gameboard);
+            if (secondPlayer.winner) {
+              whoWins.textContent = "O wins!";
+            }
+            squareRender.textContent = `${secondPlayer.marker}`;
+          }
+          gameTurn++;
+        }
+      });
+      gameboardRender.appendChild(squareRender);
+    }
+  };
+  return { getGameboard, changeGameboard, checkGame, renderGameboard };
 }
+const tuxedo = document.querySelector(".tux");
 const firstPlayer = Player("Schism", "X");
 const secondPlayer = Player("Moth", "O");
 
 const gameboard = Gameboard();
-gameboard.changeGameboard(secondPlayer.newChoise(0), secondPlayer.marker);
-gameboard.changeGameboard(firstPlayer.newChoise(1), firstPlayer.marker);
-gameboard.changeGameboard(firstPlayer.newChoise(2), firstPlayer.marker);
-gameboard.changeGameboard(secondPlayer.newChoise(4), secondPlayer.marker);
-gameboard.changeGameboard(secondPlayer.newChoise(8), secondPlayer.marker);
 // console.log(firstPlayer.getMarker());
-console.log(gameboard.getGameboard());
-gameboard.checkGame(secondPlayer.marker);
+gameboard.renderGameboard();
+tuxedo.addEventListener("click", () => {
+  tuxedo.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
+});
