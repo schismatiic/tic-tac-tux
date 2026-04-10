@@ -15,6 +15,7 @@ function Player(name, marker) {
 function Gameboard() {
   const gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
   let gameTurn = 0;
+  let checkEmpty = [];
   const changeGameboard = (newChoise, marker) => {
     if (gameboard[newChoise] !== "X" && gameboard[newChoise] !== "O") {
       if (marker === "X") {
@@ -59,27 +60,37 @@ function Gameboard() {
       const gameboardRender = document.getElementById("gameboard");
       const whoWins = document.getElementById("who-wins");
       const squareRender = document.createElement("button");
+
       squareRender.className = "square";
       squareRender.addEventListener("click", () => {
-        if (gameTurn < 9) {
-          if (gameTurn % 2 === 0) {
-            changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
-            checkGame(firstPlayer.marker);
-            console.log(gameboard);
-            if (firstPlayer.winner) {
-              whoWins.textContent = "X wins!";
+        if (checkEmpty[index] === undefined) {
+          checkEmpty[index] = index;
+          console.log(`Index: ${index}`);
+          console.log(`Checkempty index: ${checkEmpty[index]}`);
+          console.log(checkEmpty);
+          if (gameTurn < 9) {
+            if (gameTurn % 2 === 0) {
+              changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
+              checkGame(firstPlayer.marker);
+              console.log(gameboard);
+              if (firstPlayer.winner) {
+                whoWins.textContent = "X wins!";
+              }
+              squareRender.textContent = `${firstPlayer.marker}`;
+            } else {
+              changeGameboard(
+                secondPlayer.newChoise(index),
+                secondPlayer.marker,
+              );
+              checkGame(secondPlayer.marker);
+              console.log(gameboard);
+              if (secondPlayer.winner) {
+                whoWins.textContent = "O wins!";
+              }
+              squareRender.textContent = `${secondPlayer.marker}`;
             }
-            squareRender.textContent = `${firstPlayer.marker}`;
-          } else {
-            changeGameboard(secondPlayer.newChoise(index), secondPlayer.marker);
-            checkGame(secondPlayer.marker);
-            console.log(gameboard);
-            if (secondPlayer.winner) {
-              whoWins.textContent = "O wins!";
-            }
-            squareRender.textContent = `${secondPlayer.marker}`;
+            gameTurn++;
           }
-          gameTurn++;
         }
       });
       gameboardRender.appendChild(squareRender);
