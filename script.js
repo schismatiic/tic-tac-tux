@@ -14,6 +14,7 @@ function Player(name, marker) {
 }
 function Gameboard() {
   let gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+  let draw = false;
   let gameTurn = 0;
   let checkEmpty = [];
   // =============================================================================================================
@@ -59,6 +60,7 @@ function Gameboard() {
         secondPlayer.winner = true;
       }
     } else {
+      draw = true;
       console.log("Draw!");
     }
   };
@@ -115,6 +117,7 @@ function Gameboard() {
   // =============================> GAMEBOARD RENDER
   const renderGameboard = () => {
     const restartRender = (gamescreen, restartButton, winner, square) => {
+      const squares = document.querySelectorAll(".square");
       gamescreen.removeChild(restartButton);
       gameTurn = 0;
       gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
@@ -125,6 +128,14 @@ function Gameboard() {
       } else if (winner === secondPlayer) {
         secondPlayer.winner = false;
       }
+      if (draw === true) {
+        draw = false;
+      }
+      squares.forEach((element) => {
+        element.textContent = "";
+      });
+      console.log(squares);
+
       square.textContent = "";
     };
     for (let index = 0; index < 9; index++) {
@@ -189,7 +200,26 @@ function Gameboard() {
               }
               squareRender.textContent = `${secondPlayer.marker}`;
             }
+            if (draw === true && gameTurn === 8) {
+              whoWins.textContent = "Draw!";
+              const restartButton = document.createElement("button");
+              restartButton.className = "restart__button";
+              restartButton.textContent = "Restart";
+              game__screen.appendChild(restartButton);
+              restartButton.addEventListener("click", () => {
+                restartRender(
+                  game__screen,
+                  restartButton,
+                  drawPlayer,
+                  squareRender,
+                );
+              });
+            }
             gameTurn++;
+            if (gameTurn === 0) {
+              gameTurn = 0;
+            }
+            console.log("Gameturn:" + gameTurn);
           }
         }
       });
@@ -237,6 +267,7 @@ for (let i = 0; i < 3; i++) {
 // =============================================================================================================
 let firstPlayer = Player("Player 1", "X");
 let secondPlayer = Player("Player 2", "O");
+let drawPlayer = Player("Draw", "P");
 const gameboard = Gameboard();
 
 gameboard.startRender();
