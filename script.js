@@ -116,13 +116,20 @@ function Gameboard() {
   // =============================================================================================================
   // =============================> GAMEBOARD RENDER
   const renderGameboard = () => {
-    const restartRender = (gamescreen, restartButton, winner, square) => {
+    const restartRender = (
+      gamescreen,
+      restartButton,
+      winner,
+      square,
+      whowins,
+    ) => {
       const squares = document.querySelectorAll(".square");
       gamescreen.removeChild(restartButton);
       gameTurn = 0;
       gameboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
       checkEmpty = [];
       console.log(checkEmpty);
+      whowins.textContent = `${firstPlayer.name}'s turn`;
       if (winner === firstPlayer) {
         firstPlayer.winner = false;
       } else if (winner === secondPlayer) {
@@ -158,7 +165,7 @@ function Gameboard() {
               changeGameboard(firstPlayer.newChoise(index), firstPlayer.marker);
               checkGame(firstPlayer.marker);
               console.log(gameboard);
-              whoWins.textContent = `${firstPlayer.name}'s turn`;
+              whoWins.textContent = `${secondPlayer.name}'s turn`;
               if (firstPlayer.winner) {
                 whoWins.textContent = `${firstPlayer.name} wins!`;
                 const restartButton = document.createElement("button");
@@ -171,6 +178,7 @@ function Gameboard() {
                     restartButton,
                     firstPlayer,
                     squareRender,
+                    whoWins,
                   );
                 });
               }
@@ -182,7 +190,7 @@ function Gameboard() {
               );
               checkGame(secondPlayer.marker);
               console.log(gameboard);
-              whoWins.textContent = `${secondPlayer.name}'s turn`;
+              whoWins.textContent = `${firstPlayer.name}'s turn`;
               if (secondPlayer.winner) {
                 whoWins.textContent = `${secondPlayer.name} wins!`;
                 const restartButton = document.createElement("button");
@@ -195,6 +203,7 @@ function Gameboard() {
                     restartButton,
                     secondPlayer,
                     squareRender,
+                    whoWins,
                   );
                 });
               }
@@ -217,6 +226,7 @@ function Gameboard() {
                   restartButton,
                   drawPlayer,
                   squareRender,
+                  whoWins,
                 );
               });
             }
