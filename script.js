@@ -200,7 +200,12 @@ function Gameboard() {
               }
               squareRender.textContent = `${secondPlayer.marker}`;
             }
-            if (draw === true && gameTurn === 8) {
+            if (
+              draw === true &&
+              gameTurn === 8 &&
+              firstPlayer.winner === false &&
+              secondPlayer.winner === false
+            ) {
               whoWins.textContent = "Draw!";
               const restartButton = document.createElement("button");
               restartButton.className = "restart__button";
